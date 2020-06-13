@@ -1,0 +1,74 @@
+body {
+    background: whitesmoke;
+}
+
+.head {
+    text-align: center;
+    padding: 0.7em;
+    border-radius: 4px;
+    margin-top: 0;
+}
+
+.image {
+    background: white;
+    border-radius: 4px;
+}
+
+.welcome {
+    margin-top: 0;
+}
+
+.footer {
+
+    padding: 1rem;
+    padding-top: 0;
+    margin: 0;
+    font-family: 'Open Sans Condensed', sans-serif;
+    letter-spacing: 1.8px;
+    font-weight: 800;
+    color: navy;
+    margin-left: 20px;
+}
+
+img {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+.home {
+    padding: 1em;
+    padding-bottom: 60px;
+    border-radius: 5px;
+    text-align: center;
+    background: #E8E8E8;
+}
+
+.one {
+    background: orange;
+}
+
+.two {
+    background: lightblue;
+}
+
+.three {
+    background: lightcoral;
+}
+
+.all h1 {
+    text-align: center;
+}
+
+.all {
+    border-radius: 5px;
+}
+
+.thumbnail {
+    background: lightgrey;
+    border: 1px solid white;
+    text-align: center;
+}
+
+.clicked {
+    color: white;
+}

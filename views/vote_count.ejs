@@ -1,0 +1,66 @@
+<%- include('partials/header'); -%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 one all">
+            <h1>Worli</h1>
+            <div class="row">
+                <div class="col-md-10 col-xs-10">
+                    <% block.forEach(function(foundBlock){ %>
+                        <%    if(foundBlock.constituency === "Worli"){ %>
+                                <h3><%= foundBlock.name %></h3>
+                        <%   } %>
+                        <% }) %>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <% block.forEach(function(foundBlock){ %>
+                        <%    if(foundBlock.constituency === "Worli"){ %>
+                                <h3><span class="count"><%= foundBlock.voteCount %></span></h3>
+                        <%   } %>
+                        <% }) %>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4 two all">
+            <h1>Amethi</h1>
+            <div class="row">
+                <div class="col-md-10 col-xs-10">
+                    <% block.forEach(function(foundBlock){ %>
+                        <%    if(foundBlock.constituency === "Amethi"){ %>
+                                <h3><%= foundBlock.name %></h3>
+                        <%   } %>
+                        <% }) %>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <% block.forEach(function(foundBlock){ %>
+                        <%    if(foundBlock.constituency === "Amethi"){ %>
+                                <h3><span class="count"><%= foundBlock.voteCount %></span></h3>
+                        <%   } %>
+                        <% }) %>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 three all">
+            <h1>Varanasi</h1>
+            <div class="row">
+                <div class="col-md-10 col-xs-10">
+                    <% block.forEach(function(foundBlock){ %>
+                        <%    if(foundBlock.constituency === "Varanasi"){ %>
+                                <h3><%= foundBlock.name %></h3>
+                        <%   } %>
+                        <% }) %>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <% block.forEach(function(foundBlock){ %>
+                        <%    if(foundBlock.constituency === "Varanasi"){ %>
+                                <h3><span class="count"><%= foundBlock.voteCount %></span></h3>
+                        <%   } %>
+                        <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer'); -%>
+

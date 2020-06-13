@@ -1,0 +1,58 @@
+<%- include('partials/header'); -%>
+
+<div class="container">
+    <div class="row">
+        <div style="width: 23.0em; margin: 25px auto;">
+            <h1>Register</h1>
+            <form action="/votechain/register" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="aadhar" placeholder="Aadhar" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control age" type="Number" name="age" placeholder="Age" required>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="gender" required>
+                        <option>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="constituency" required>
+                        <option>Constituency</option>
+                        <option value="Varanasi">Varanasi</option>
+                        <option value="Worli">Worli</option>
+                        <option value="Amethi">Amethi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password" minlength="8" required>
+                </div>
+                <div class="form-group">
+                    <button class="mybt btn btn-lg btn-primary btn-block">Register</button>
+                </div>
+            </form>
+            <p>Already have an account?</p>
+            <a class="btn btn-lg btn-info btn-block" href="/votechain/login">Login</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    var age = document.querySelector(".age");
+    var button = document.querySelector(".mybt");
+
+    button.addEventListener("click", function(e){
+        if(age.value < 18){
+            alert("Age must be 18 or above!")
+        }
+    });
+</script>
+
+<!-- <li><a href="/logout">Logout</a></li> -->
+
+<%- include('partials/footer'); -%>

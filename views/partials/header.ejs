@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Votechain</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js></script> -->
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                    <a id="home" class="navbar-brand" href="/">VoteChain</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-nav-demo">
+                    <ul class="nav navbar-nav">
+                        <li><a id="vote" href="/votechain/vote">Vote</a></li>
+                        <li><a id="results" href="/votechain/count">Results</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                    <% if(!crrUser) {%>
+                            <li><a id="login" href="/votechain/login">Login</a></li>
+                            <li><a id="register" href="/votechain/register">Register</a></li>
+                        <% } else{ %>
+                            <li><a href="/logout">Logout</a></li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
