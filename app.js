@@ -16,8 +16,16 @@ var express               = require("express"),
 var votingRoutes = require("./routes/voting"),
     indexRoutes  = require("./routes");
 
-// MONGODB CONNECTION
-mongoose.connect("mongodb://127.0.0.1:27017/votechain");
+const PORT = process.env.PORT || 3000;
+ 
+//------------------------- MONGODB CONNECTION ---------------------
+const URI = process.env.DATABASEURL || 'mongodb://127.0.0.1:27017/votechain';
+mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+//------------------------------------------------------------------
+
 // seedDB();
 
 app.set("view engine", "ejs");
@@ -49,8 +57,8 @@ app.use(votingRoutes);
 app.use(indexRoutes);
 
 // FOR STARTING LOCALHOST SERVER AT PORT 3000
-app.listen(3000, function(){
-    console.log("Server is running....");
+app.listen(PORT, function(){
+    console.log("The VoteChain Server Has Started!");
 });
 
 // console.log(chainIsValid());
