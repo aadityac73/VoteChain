@@ -27,7 +27,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                    <% if(!crrUser) {%>
+                    <% if(!currUser) {%>
                             <li><a id="login" href="/votechain/login">Login</a></li>
                             <li><a id="register" href="/votechain/register">Register</a></li>
                         <% } else{ %>
@@ -37,4 +37,17 @@
                 </div>
             </div>
         </nav>
+
+        <div class="container">
+            <% if(error && error.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success && success.length > 0) { %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+        </div>
     

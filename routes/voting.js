@@ -11,9 +11,11 @@ router.get("/votechain/vote", isLoggedIn, function(req, res){
     Candidate.find({constituency: req.user.constituency}, function(err, candidates){
         if(err) {
             console.log(err);
+            req.flash("error", "No candidates found!!");
+            res.redirect("back");
         }
         else {
-            res.render("voting",{crrUser: req.user, foundCandidates: candidates});
+            res.render("voting",{foundCandidates: candidates});
         }
     })
 });
@@ -41,7 +43,8 @@ router.post("/votechain/vote", function(req, res){
                                 })
                                 voter.save();
                                 vote.addBlock(voter);
-                                res.redirect("/votechain/vote/success");
+                                req.flash("success", "Your Vote has been Added Successfully");
+                                res.redirect("back");
                             }
                         })
                     });
@@ -52,8 +55,8 @@ router.post("/votechain/vote", function(req, res){
     });
     }
     else {
-        console.log("You already have voted");
-        res.redirect("/votechain/error/voting");
+        req.flash("error","You already have voted");
+        res.redirect("back");
     }
 
 })
@@ -65,11 +68,11 @@ router.get("/votechain/count", function(req, res){
             console.log(err);
         } else {
             if(blocks.length === 0) {
-                console.log("No one have casted vote.");
-                res.redirect("/votechain")
+                req.flash("error","No one have casted vote.");
+                res.redirect("back")
             }
             else {
-                res.render("vote_count", {block: blocks[blocks.length - 1].data.candidateData, crrUser: req.user})
+                res.render("vote_count", {block: blocks[blocks.length - 1].data.candidateData})
                 // console.log({block: blocks[blocks.length - 1].data.candidateData});
             }
         }
@@ -81,6 +84,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
         return next();
     }
+    req.flash("error", "You need to be logged in to do that");
     res.redirect("/votechain/login");
 }
 
