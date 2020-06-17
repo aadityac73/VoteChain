@@ -54,16 +54,17 @@ function seedDB(){
                     Voter.remove({}, function(err){
                         if(err){
                             console.log(err);
-                        } else{
-                            // INSERTING CANDIDATES INTO DATABASE
-                            Candidate.create(candidates, function(err, allCandidates){
-                                if(err) {
-                                    console.log(err);
-                                } else {
-                                    console.log("Candidates inserted sucessfully");
-                                }
-                            });
-                        }
+                        } 
+                        // else{
+                        //     // INSERTING CANDIDATES INTO DATABASE
+                        //     Candidate.create(candidates, function(err, allCandidates){
+                        //         if(err) {
+                        //             console.log(err);
+                        //         } else {
+                        //             console.log("Candidates inserted sucessfully");
+                        //         }
+                        //     });
+                        // }
                     });
                 }
             });

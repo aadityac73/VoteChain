@@ -24,6 +24,11 @@
                     <ul class="nav navbar-nav">
                         <li><a id="vote" href="/votechain/vote">Vote</a></li>
                         <li><a id="results" href="/votechain/count">Results</a></li>
+                        <% if(currUser && currUser.username == 'admin') {%>
+                                <li><a id="admin" href="/votechain/admin">Admin</a></li>
+                        <% }else { %>
+                                <li><a id="admin" href="/votechain/login/admin">Admin</a></li>
+                        <% } %>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -49,5 +54,4 @@
                     <%= success %>
                 </div>
             <% } %>
-        </div>
-    
+        </div>    

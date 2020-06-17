@@ -2,12 +2,13 @@ var express     = require("express"),
     router      = express.Router(),
     Candidate   = require("../models/candidate"),
     Voter       = require("../models/voter"),
-    myBlock     = require("../models/b_chain");
+    myBlock     = require("../models/b_chain"),
+    middleware  = require("../middleware");
 
 const vote = require("../blockchain");
 
 // ROUTE FOR VOTING PAGE
-router.get("/votechain/vote", isLoggedIn, function(req, res){
+router.get("/votechain/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
     Candidate.find({constituency: req.user.constituency}, function(err, candidates){
         if(err) {
             console.log(err);
@@ -21,7 +22,7 @@ router.get("/votechain/vote", isLoggedIn, function(req, res){
 });
 
 // ROUTE FOR ADDING NEW VOTE
-router.post("/votechain/vote", function(req, res){
+router.post("/votechain/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
     if(req.user.isVoted === false) {
     Candidate.findById(req.body.candidate, function(err, candidate){
         if(err) {
@@ -59,7 +60,24 @@ router.post("/votechain/vote", function(req, res){
         res.redirect("back");
     }
 
-})
+});
+
+//admin route
+router.get("/votechain/admin", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
+    res.render("addCandidates");
+});
+
+router.post("/votechain/admin", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
+    Candidate.create(req.body.candidate, function(err, newCandidate){
+        if(err){
+            req.flash("error", "Something went wrong while adding candidate");
+            res.redirect("back");
+        } else {
+            req.flash("success", "Candidate Added Successfully");
+            res.redirect("back");
+        }
+    });
+});
 
 // ROUTE FOR RESULTS PAGE
 router.get("/votechain/count", function(req, res){
@@ -78,14 +96,5 @@ router.get("/votechain/count", function(req, res){
         }
     })
 });
-
-// FUNCTION FOR CHECHING ANY USER IS LOGGED IN OR NOT
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    req.flash("error", "You need to be logged in to do that");
-    res.redirect("/votechain/login");
-}
 
 module.exports = router;

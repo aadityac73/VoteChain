@@ -43,12 +43,18 @@ router.get("/votechain/login", function(req, res){
     res.render("login");
 });
 
+router.get("/votechain/login/admin", function(req, res){
+    res.render("admin_login");
+});
+
 // ROUTE FOR LOGIN
-router.post("/votechain/login", passport.authenticate("local", {
-    successRedirect: "/votechain/vote",
-    failureRedirect: "/votechain/login",
-    failureFlash: "Invalid Username or Password"
-}), function(req, res){
+router.post("/votechain/login", passport.authenticate("local"), function(req, res){
+    if(req.body.username == 'admin'){
+        res.redirect("/votechain/admin");
+    }
+    else{
+        res.redirect("/votechain/vote");
+    }
 });
 
 // ROUTE FOR LOGOUT USER
