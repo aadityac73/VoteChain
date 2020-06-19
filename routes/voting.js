@@ -8,7 +8,7 @@ var express     = require("express"),
 const vote = require("../blockchain");
 
 // ROUTE FOR VOTING PAGE
-router.get("/votechain/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
+router.get("/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
     Candidate.find({constituency: req.user.constituency}, function(err, candidates){
         if(err) {
             console.log(err);
@@ -22,7 +22,7 @@ router.get("/votechain/vote", middleware.isLoggedIn, middleware.isNotAdmin, func
 });
 
 // ROUTE FOR ADDING NEW VOTE
-router.post("/votechain/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
+router.post("/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
     if(req.user.isVoted === false) {
     Candidate.findById(req.body.candidate, function(err, candidate){
         if(err) {
@@ -63,11 +63,11 @@ router.post("/votechain/vote", middleware.isLoggedIn, middleware.isNotAdmin, fun
 });
 
 //admin route
-router.get("/votechain/admin", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
+router.get("/admin", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
     res.render("addCandidates");
 });
 
-router.post("/votechain/admin", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
+router.post("/admin", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
     Candidate.create(req.body.candidate, function(err, newCandidate){
         if(err){
             req.flash("error", "Something went wrong while adding candidate");
@@ -80,7 +80,7 @@ router.post("/votechain/admin", middleware.isLoggedIn, middleware.isAdmin, funct
 });
 
 // ROUTE FOR RESULTS PAGE
-router.get("/votechain/results", function(req, res){
+router.get("/results", function(req, res){
     myBlock.find({}, function(err, blocks){
         if(err) {
             console.log(err);

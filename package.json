@@ -1,5 +1,5 @@
 {
-  "name": "simple_blockchain",
+  "name": "votechain",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",

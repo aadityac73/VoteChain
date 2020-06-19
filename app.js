@@ -53,8 +53,13 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use(votingRoutes);
-app.use(indexRoutes);
+app.use("/votechain",votingRoutes);
+app.use("/votechain",indexRoutes);
+
+// ROOT ROUTE
+app.get("/", function(req, res){
+    res.redirect("/votechain");
+});
 
 // FOR STARTING LOCALHOST SERVER AT PORT 3000
 app.listen(PORT, function(){

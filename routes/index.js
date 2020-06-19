@@ -3,23 +3,18 @@ var express     = require("express"),
     passport    = require("passport"),
     Voter        = require("../models/voter");
 
-// ROOT ROUTE
+// INDEX ROUTE
 router.get("/", function(req, res){
-    res.redirect("/votechain");
-});
-
-    // INDEX ROUTE
-router.get("/votechain", function(req, res){
     res.render("index");
 });
 
 // ROUTE FOR REGISTRATION PAGE
-router.get("/votechain/register", function(req, res){
+router.get("/register", function(req, res){
     res.render("register");
 });
 
 // ROUTE FOR REGISTRATION
-router.post("/votechain/register", function(req, res){
+router.post("/register", function(req, res){
     if(req.body.age >= 18) {
         Voter.register(new Voter({username: req.body.aadhar, name:req.body.name, age:req.body.age, gender:req.body.gender, constituency: req.body.constituency}), req.body.password, function(err, voter){
             if(err) {
@@ -39,16 +34,16 @@ router.post("/votechain/register", function(req, res){
 });
 
 // ROUTE FOR LOGIN PAGE
-router.get("/votechain/login", function(req, res){
+router.get("/login", function(req, res){
     res.render("login");
 });
 
-router.get("/votechain/login/admin", function(req, res){
+router.get("/login/admin", function(req, res){
     res.render("admin_login");
 });
 
 // ROUTE FOR LOGIN
-router.post("/votechain/login", passport.authenticate("local"), function(req, res){
+router.post("/login", passport.authenticate("local"), function(req, res){
     if(req.body.username == 'admin'){
         res.redirect("/votechain/admin");
     }
