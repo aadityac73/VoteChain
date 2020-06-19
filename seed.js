@@ -55,7 +55,8 @@ function seedDB(){
                         if(err){
                             console.log(err);
                         } 
-                        // else{
+                        else{
+                            console.log("Seeding Done!!");
                         //     // INSERTING CANDIDATES INTO DATABASE
                         //     Candidate.create(candidates, function(err, allCandidates){
                         //         if(err) {
@@ -64,7 +65,7 @@ function seedDB(){
                         //             console.log("Candidates inserted sucessfully");
                         //         }
                         //     });
-                        // }
+                        }
                     });
                 }
             });

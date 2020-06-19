@@ -8,7 +8,7 @@ router.get("/", function(req, res){
     res.redirect("/votechain");
 });
 
-// INDEX ROUTE
+    // INDEX ROUTE
 router.get("/votechain", function(req, res){
     res.render("index");
 });

@@ -17,14 +17,14 @@ var votingRoutes = require("./routes/voting"),
     indexRoutes  = require("./routes");
 
 const PORT = process.env.PORT || 3000;
- 
-//------------------------- MONGODB CONNECTION ---------------------
+
+//------------------------- MONGODB CONNECTION -------------------------------
 const URI = process.env.DATABASEURL || 'mongodb://127.0.0.1:27017/votechain';
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-//------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
 // seedDB();
 

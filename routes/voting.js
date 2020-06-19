@@ -80,7 +80,7 @@ router.post("/votechain/admin", middleware.isLoggedIn, middleware.isAdmin, funct
 });
 
 // ROUTE FOR RESULTS PAGE
-router.get("/votechain/count", function(req, res){
+router.get("/votechain/results", function(req, res){
     myBlock.find({}, function(err, blocks){
         if(err) {
             console.log(err);
