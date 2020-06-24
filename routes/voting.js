@@ -10,7 +10,7 @@ const vote = require("../blockchain");
 // ROUTE FOR VOTING PAGE
 router.get("/vote", middleware.isLoggedIn, middleware.isNotAdmin, function(req, res){
     Candidate.find({constituency: req.user.constituency}, function(err, candidates){
-        if(err) {
+        if(err || !candidates) {
             console.log(err);
             req.flash("error", "No candidates found!!");
             res.redirect("back");

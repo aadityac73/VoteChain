@@ -24,4 +24,22 @@ middleware.isNotAdmin = function(req, res, next){
     res.redirect("back");
 }
 
+middleware.isNotAuthenticated = function(req, res, next){
+    if(req.isAuthenticated()) {
+        req.flash('error', 'Sorry, but you are already logged in!');
+        res.redirect('back');
+    } else {
+        return next();
+    }
+}
+
+middleware.isVerified = function(req, res, next){
+    if(!req.user.verified){
+        req.flash("error", "Sorry, but you need to verify your acount first, Check your Email!");
+        req.logout();
+        return res.redirect("/votechain/login");
+    }
+    return next();
+}
+
 module.exports = middleware;

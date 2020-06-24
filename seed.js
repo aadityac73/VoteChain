@@ -57,14 +57,14 @@ function seedDB(){
                         } 
                         else{
                             console.log("Seeding Done!!");
-                        //     // INSERTING CANDIDATES INTO DATABASE
-                        //     Candidate.create(candidates, function(err, allCandidates){
-                        //         if(err) {
-                        //             console.log(err);
-                        //         } else {
-                        //             console.log("Candidates inserted sucessfully");
-                        //         }
-                        //     });
+                            // INSERTING CANDIDATES INTO DATABASE
+                            Candidate.create(candidates, function(err, allCandidates){
+                                if(err) {
+                                    console.log(err);
+                                } else {
+                                    console.log("Candidates inserted sucessfully");
+                                }
+                            });
                         }
                     });
                 }

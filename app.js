@@ -1,15 +1,11 @@
 var express               = require("express"),
     app                   = express(),
     bodyParser            = require("body-parser"),
-    hash                  = require("hash.js"),
     mongoose              = require("mongoose"),
     flash                 = require("connect-flash"),
     passport              = require("passport"),
     LocalStrategy         = require("passport-local"),
-    passportLocalMongoose = require("passport-local-mongoose"),
-    Candidate             = require("./models/candidate"),
     Voter                 = require("./models/voter"),
-    myBlock               = require("./models/b_chain"),
     seedDB                = require("./seed"),
     chainIsValid          = require("./validity");
 
