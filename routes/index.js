@@ -6,6 +6,8 @@ const express      = require("express"),
       randomString = require("randomstring"),
       mailer       = require("../misc/mailer");
 
+
+const URL = process.env.WEBURL || 'http://localhost:3000/verify';
 // ROUTE FOR REGISTRATION PAGE
 router.route("/register")
     .get(middleware.isNotAuthenticated, (req, res) => {
@@ -35,7 +37,7 @@ router.route("/register")
                 OTP Password: <b>${secretToken}</b>
                 <br/>
                 On the following page:
-                <a href="http://localhost:3000/verify">http://localhost:3000/verify</a>
+                <a href="${URL}">${URL}</a>
                 <br/><br/>
                 Have a pleasant day.` 
 
