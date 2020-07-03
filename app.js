@@ -49,8 +49,8 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use("/votechain",votingRoutes);
-app.use("/votechain",indexRoutes);
+app.use("/",votingRoutes);
+app.use("/",indexRoutes);
 
 // INDEX ROUTE
 app.get("/", (req, res) => {

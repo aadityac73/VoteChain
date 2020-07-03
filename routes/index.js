@@ -35,19 +35,19 @@ router.route("/register")
                 OTP Password: <b>${secretToken}</b>
                 <br/>
                 On the following page:
-                <a href="http://localhost:3000/votechain/verify">http://localhost:3000/votechain/verify</a>
+                <a href="http://localhost:3000/verify">http://localhost:3000/verify</a>
                 <br/><br/>
                 Have a pleasant day.` 
 
                 // Send Email
                 mailer.sendEmail('myvotechain@gmail.com', voter.email, 'Please verify your VoteChain Account!', html);
                 req.flash("success", "Registerd successfully, Check your Email");
-                res.redirect("/votechain/login");
+                res.redirect("/login");
             }
         }
         else {
             req.flash("error","Age must be 18 or above");
-            res.redirect("/votechain/register");
+            res.redirect("/register");
         }
     }
     catch(error) {
@@ -65,13 +65,13 @@ router.route("/verify")
             const voter = await Voter.findOne({secretToken: req.body.secretToken});
             if(!voter){
                 req.flash("error", "No user found!!");
-                res.redirect("/votechain/verify");
+                res.redirect("/verify");
             } else {
                 voter.verified = true;
                 voter.secretToken = "";
                 await voter.save();
                 req.flash("success", "Sucessfully varified!!");
-                res.redirect("/votechain/login");
+                res.redirect("/login");
             }
         } catch(error){
             next(error);
@@ -84,15 +84,15 @@ router.route("/login")
         res.render("login");
     })
     .post(passport.authenticate("local", {
-        failureRedirect: "/votechain/login",
+        failureRedirect: "/login",
         failureFlash: "Invalid, Username or Password"
         }), 
         middleware.isVerified, (req, res) => {
             if(req.body.username == 'admin'){
-                res.redirect("/votechain/admin");
+                res.redirect("/admin");
             }
             else{
-                res.redirect("/votechain/vote");
+                res.redirect("/vote");
             }
         });
 

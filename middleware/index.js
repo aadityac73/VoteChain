@@ -5,7 +5,7 @@ middleware.isLoggedIn = function(req, res, next){
         return next();
     }
     req.flash("error", "You need to be logged in to do that");
-    res.redirect("/votechain/login");
+    res.redirect("/login");
 }
 
 middleware.isAdmin = function(req, res, next){
@@ -37,7 +37,7 @@ middleware.isVerified = function(req, res, next){
     if(!req.user.verified){
         req.flash("error", "Sorry, but you need to verify your acount first, Check your Email!");
         req.logout();
-        return res.redirect("/votechain/login");
+        return res.redirect("/login");
     }
     return next();
 }

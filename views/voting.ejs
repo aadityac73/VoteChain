@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-4" style="background: lightgrey; padding: 2.0em; border-radius: 5px;">
             <h1 style="margin-top: 0; margin-bottom: 40px;">Cast your vote</h1>
-            <form action="/votechain/vote" method="POST">
+            <form action="/vote" method="POST">
                 <% foundCandidates.forEach(function(candidate){ %>
                     <div class="thumbnail">
                         <img class="img-responsive" src="<%= candidate.image %>" alt="">

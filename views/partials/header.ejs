@@ -22,21 +22,21 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-nav-demo">
                     <ul class="nav navbar-nav">
-                        <li><a id="vote" href="/votechain/vote">Vote</a></li>
-                        <li><a id="results" href="/votechain/results">Results</a></li>
+                        <li><a id="vote" href="/vote">Vote</a></li>
+                        <li><a id="results" href="/results">Results</a></li>
                         <% if(currUser && currUser.username == 'admin') {%>
-                                <li><a id="admin" href="/votechain/admin">Admin</a></li>
+                                <li><a id="admin" href="/admin">Admin</a></li>
                         <% }else { %>
-                                <li><a id="admin" href="/votechain/login/admin">Admin</a></li>
+                                <li><a id="admin" href="/login/admin">Admin</a></li>
                         <% } %>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                     <% if(!currUser) {%>
-                            <li><a id="login" href="/votechain/login">Login</a></li>
-                            <li><a id="register" href="/votechain/register">Register</a></li>
+                            <li><a id="login" href="/login">Login</a></li>
+                            <li><a id="register" href="/register">Register</a></li>
                         <% } else{ %>
-                            <li><a href="/votechain/logout">Logout</a></li>
+                            <li><a href="/logout">Logout</a></li>
                             <% } %>
                     </ul>
                 </div>
