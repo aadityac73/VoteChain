@@ -1,11 +1,20 @@
+var loc = window.location.href;
+if(/results/.test(loc))
+    $('#results').addClass('clicked');
 
-// $("#home").on("click",function(){
-// $(this).addClass("clicked");
-// });
+else if(/admin/.test(loc))
+    $('#admin').addClass('clicked');
 
-// var home = document.getElementById("home");
-// home.addEventListener("click",function(e){
-//     this.style.color = "white";
-// });
-// home.style.color = "white";
-// home.classList.add("clicked");            
+else if(/login/.test(loc))
+    $('#login').addClass('clicked');
+
+else if(/register/.test(loc))
+    $('#register').addClass('clicked');
+
+else if(/vote/.test(loc))
+    $('#vote').addClass('clicked');
+
+else
+    $('.navbar-brand').addClass('clicked');
+
+

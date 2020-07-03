@@ -19,39 +19,35 @@ class Block {
 
 // CLASS BLOCKCHAIN REPRESENTS ENTIRE BLOCKCHAIN
 class BlockChain {
-    constructor() {
-        this.chain = [];
-    }
     // FUNCTION FOR ADDING NEW BLOCK
-    addBlock(data) {
+    async addBlock(data) {
         let index;
         let prevHash;
-        myBlock.find({}, function(err, block){
-            if(err) {
-                console.log(err);
+        const blocks = await myBlock.find({});
+        if(!blocks) {
+            console.log("No block found!");
+        } else {
+            if(blocks.length === 0) {
+                index = 0;
+                prevHash = 0;
             } else {
-                if(block.length === 0) {
-                    index = 0;
-                    prevHash = 0;
-                } else {
-                    // console.log(block[block.length - 1].hash);
-                    // console.log(block.length);
-                    prevHash = block[block.length - 1].hash;
-                    index = block.length;
-                }
-                let newBlock = new Block(index, data, prevHash);
-                myBlock.create(newBlock, function(err, block) {
-                    if(err) {
-                        console.log(err);
-                    } else {
-                        console.log(block);
-                    }
-                });
-                 
+                prevHash = blocks[blocks.length - 1].hash;
+                index = blocks.length;
             }
-            
-        });
-        
+            const newBlock = new Block(index, data, prevHash);
+            const block = await myBlock.create(newBlock);
+            if(!block) {
+                console.log("Vote does not submitted!");
+            } else {
+                const addedBlock = {
+                    index: block.index,
+                    timestamp: block.timestamp,
+                    prevHash: block.prevHash,
+                    hash: block.hash
+                }
+                console.log(addedBlock);
+            }                
+        }
     }
 }
 

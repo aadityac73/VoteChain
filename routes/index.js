@@ -1,31 +1,30 @@
-var express      = require("express"),
-    router       = express.Router(),
-    passport     = require("passport"),
-    Voter        = require("../models/voter"),
-    middleware   = require("../middleware"),
-    randomString = require("randomstring"),
-    mailer       = require("../misc/mailer");
-
-// INDEX ROUTE
-router.get("/", function(req, res){
-    res.render("index");
-});
+const express      = require("express"),
+      router       = express.Router(),
+      passport     = require("passport"),
+      Voter        = require("../models/voter"),
+      middleware   = require("../middleware"),
+      randomString = require("randomstring"),
+      mailer       = require("../misc/mailer");
 
 // ROUTE FOR REGISTRATION PAGE
-router.get("/register", middleware.isNotAuthenticated, function(req, res){
-    res.render("register");
-});
-
-// ROUTE FOR REGISTRATION
-router.post("/register", function(req, res){
-    if(req.body.age >= 18) {
-        const secretToken = randomString.generate(6);
-        Voter.register(new Voter({username: req.body.aadhar, name:req.body.name, email:req.body.email,  secretToken:secretToken, age:req.body.age, gender:req.body.gender, constituency: req.body.constituency}), req.body.password, function(err, voter){
-            if(err) {
-                req.flash("error", err.message);
+router.route("/register")
+    .get(middleware.isNotAuthenticated, (req, res) => {
+        res.render("register");
+    })
+    .post(middleware.isNotAuthenticated, async (req, res, next) => {
+    try {
+        if(req.body.voter.age >= 18) {
+            const voter = await Voter.register(new Voter(req.body.voter), req.body.password)
+            if(!voter) {
+                req.flash("error", "Something went wrong!");
                 res.redirect("back");
             }
             else {
+                // GENERATE RANDOM TOKEN FOR OTP
+                const secretToken = randomString.generate(6);
+                voter.secretToken = secretToken;
+                await voter.save();
+
                 // Compose Email
                 const html = `Hi there,
                 <br/>
@@ -45,61 +44,68 @@ router.post("/register", function(req, res){
                 req.flash("success", "Registerd successfully, Check your Email");
                 res.redirect("/votechain/login");
             }
-        });
+        }
+        else {
+            req.flash("error","Age must be 18 or above");
+            res.redirect("/votechain/register");
+        }
     }
-    else {
-        req.flash("error","Age must be 18 or above");
-        res.redirect("/votechain/register");
+    catch(error) {
+        next(error);
     }  
-});
+    });
 
-router.get("/verify", middleware.isNotAuthenticated, function(req, res){
-    res.render("verify");
-});
-
-router.post("/verify", middleware.isNotAuthenticated, function(req, res){
-    Voter.findOne({secretToken: req.body.secretToken}, function(err, foundUser){
-        if(err || !foundUser){
-            req.flash("error", "No user found!!");
-            res.redirect("/votechain/verify");
-        } else {
-            foundUser.verified = true;
-            foundUser.secretToken = "";
-            foundUser.save(function(){
+//ROUTE FOR VERIFY USER
+router.route("/verify")
+    .get(middleware.isNotAuthenticated, (req, res) => { 
+        res.render("verify");
+    })
+    .post(middleware.isNotAuthenticated, async (req, res, next) => {
+        try{
+            const voter = await Voter.findOne({secretToken: req.body.secretToken});
+            if(!voter){
+                req.flash("error", "No user found!!");
+                res.redirect("/votechain/verify");
+            } else {
+                voter.verified = true;
+                voter.secretToken = "";
+                await voter.save();
                 req.flash("success", "Sucessfully varified!!");
                 res.redirect("/votechain/login");
-            });
+            }
+        } catch(error){
+            next(error);
         }
     });
-});
 
-// ROUTE FOR LOGIN PAGE
-router.get("/login", middleware.isNotAuthenticated, function(req, res){
-    res.render("login");
-});
+// ROUTE FOR LOGIN
+router.route("/login")
+    .get(middleware.isNotAuthenticated, (req, res) => {
+        res.render("login");
+    })
+    .post(passport.authenticate("local", {
+        failureRedirect: "/votechain/login",
+        failureFlash: "Invalid, Username or Password"
+        }), 
+        middleware.isVerified, (req, res) => {
+            if(req.body.username == 'admin'){
+                res.redirect("/votechain/admin");
+            }
+            else{
+                res.redirect("/votechain/vote");
+            }
+        });
 
-router.get("/login/admin", middleware.isNotAuthenticated, function(req, res){
+// ROUTE FOR ADMIN LOGIN
+router.get("/login/admin", middleware.isNotAuthenticated, (req, res) => {
     res.render("admin_login");
 });
 
-// ROUTE FOR LOGIN
-router.post("/login", passport.authenticate("local", {
-    failureRedirect: "/votechain/login",
-    failureFlash: "Invalid, Username or Password"
-}), middleware.isVerified, function(req, res){
-    if(req.body.username == 'admin'){
-        res.redirect("/votechain/admin");
-    }
-    else{
-        res.redirect("/votechain/vote");
-    }
-});
-
 // ROUTE FOR LOGOUT USER
-router.get("/logout", function(req, res){
+router.get("/logout", (req, res) => {
     req.logout();
     req.flash("success", "Logged you out!!");
-    res.redirect("/votechain");
+    res.redirect("/");
 });
 
 module.exports = router;

@@ -1,10 +1,10 @@
-var mongoose  = require("mongoose"),
-    Candidate = require("./models/candidate"),
-    Voter     = require("./models/voter"),
-    myBlock   = require("./models/b_chain");
+const mongoose  = require("mongoose"),
+      Candidate = require("./models/candidate"),
+      Voter     = require("./models/voter"),
+      myBlock   = require("./models/b_chain");
 
 // ARRAY OF CANDIDATES
-candidates = [
+const allCandidates = [
     {
         name: "Narendra Modi",
         constituency: "Varanasi",
@@ -42,35 +42,19 @@ candidates = [
         party: "BJP"
     }];
 
-function seedDB(){
-    myBlock.remove({}, function(err){
-        if(err){
-            console.log(err);
-        } else{
-            Candidate.remove({}, function(err){
-                if(err){
-                    console.log(err);
-                } else {
-                    Voter.remove({}, function(err){
-                        if(err){
-                            console.log(err);
-                        } 
-                        else{
-                            console.log("Seeding Done!!");
-                            // INSERTING CANDIDATES INTO DATABASE
-                            Candidate.create(candidates, function(err, allCandidates){
-                                if(err) {
-                                    console.log(err);
-                                } else {
-                                    console.log("Candidates inserted sucessfully");
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
-}
+async function seedDB() {
+    await myBlock.remove({});
+    await Candidate.remove({});
+    await Voter.remove({}); 
+    console.log("Seeding Done!!");
 
+    // INSERTING CANDIDATES INTO DATABASE
+    const candidates = await Candidate.create(allCandidates);
+    if(!candidates) {
+        console.log("Something went wrong!");
+    } else {
+        console.log("Candidates inserted sucessfully");
+    }
+}
+            
 module.exports = seedDB;

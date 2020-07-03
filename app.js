@@ -1,16 +1,16 @@
-var express               = require("express"),
-    app                   = express(),
-    bodyParser            = require("body-parser"),
-    mongoose              = require("mongoose"),
-    flash                 = require("connect-flash"),
-    passport              = require("passport"),
-    LocalStrategy         = require("passport-local"),
-    Voter                 = require("./models/voter"),
-    seedDB                = require("./seed"),
-    chainIsValid          = require("./validity");
+const express       = require("express"),
+      app           = express(),
+      bodyParser    = require("body-parser"),
+      mongoose      = require("mongoose"),
+      flash         = require("connect-flash"),
+      passport      = require("passport"),
+      LocalStrategy = require("passport-local"),
+      Voter         = require("./models/voter"),
+      seedDB        = require("./seed"),
+      chainIsValid  = require("./validity");
 
-var votingRoutes = require("./routes/voting"),
-    indexRoutes  = require("./routes");
+const votingRoutes = require("./routes/voting"),
+      indexRoutes  = require("./routes");
 
 const PORT = process.env.PORT || 3000;
 
@@ -52,13 +52,13 @@ app.use(function(req, res, next){
 app.use("/votechain",votingRoutes);
 app.use("/votechain",indexRoutes);
 
-// ROOT ROUTE
-app.get("/", function(req, res){
-    res.redirect("/votechain");
+// INDEX ROUTE
+app.get("/", (req, res) => {
+    res.render("index");
 });
 
 // FOR STARTING LOCALHOST SERVER AT PORT 3000
-app.listen(PORT, function(){
+app.listen(PORT, () => {
     console.log("The VoteChain Server Has Started!");
 });
 
