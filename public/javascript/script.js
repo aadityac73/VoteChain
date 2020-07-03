@@ -11,7 +11,7 @@ else if(/login/.test(loc))
 else if(/register/.test(loc))
     $('#register').addClass('clicked');
 
-else if(/vote/.test(loc))
+else if(/vote/.test(loc) && !/votechain/.test(loc))
     $('#vote').addClass('clicked');
 
 else
