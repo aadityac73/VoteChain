@@ -32,7 +32,7 @@ router.route("/register")
                 <br/>
                 Thank you for registering!
                 <br/><br/>
-                Please verify your Account by entering the following OTP Password:
+                Please verify your Account by entering the following
                 <br/>
                 OTP Password: <b>${secretToken}</b>
                 <br/>
