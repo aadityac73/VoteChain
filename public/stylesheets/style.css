@@ -1,89 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+:root {
+	--primary-color: #581b98;
+	--secondary-color: #9c1de7;
+}
+
 body {
-    background: whitesmoke;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	background: #ffff;
+	font-family: 'Noto Sans', sans-serif;
+}
+
+.navbar-dark .navbar-brand {
+	font-size: 1.6em;
+	font-weight: 500;
+}
+
+.active {
+	color: #fff !important;
+}
+
+.bg-dark {
+	background-color: var(--primary-color) !important;
 }
 
 .head {
-    text-align: center;
-    padding: 0.7em;
-    border-radius: 4px;
-    margin-top: 0;
+	text-align: center;
+	padding: 0.7em;
+	border-radius: 4px;
+	margin-top: 0;
 }
 
 .image {
-    background: white;
-    border-radius: 4px;
+	background: white;
+	border-radius: 4px;
 }
 
 .welcome {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 .footer {
-
-    padding: 1rem;
-    padding-top: 0;
-    margin: 0;
-    font-family: 'Open Sans Condensed', sans-serif;
-    letter-spacing: 1.8px;
-    font-weight: 800;
-    color: navy;
-    margin-left: 20px;
+	padding: 1rem;
+	padding-top: 0;
+	margin: 0;
+	font-family: 'Open Sans Condensed', sans-serif;
+	letter-spacing: 1.8px;
+	font-weight: 800;
+	color: navy;
+	margin-left: 20px;
 }
 
 img {
-    padding: 20px;
-    padding-bottom: 0;
+	padding: 20px;
+	padding-bottom: 0;
 }
 
 .home {
-    padding: 1em;
-    padding-bottom: 60px;
-    border-radius: 5px;
-    text-align: center;
-    background: #E8E8E8;
+	padding: 1em;
+	padding-bottom: 60px;
+	border-radius: 5px;
+	text-align: center;
+	background: #e8e8e8;
 }
 
 .one {
-    background: orange;
+	background: orange;
 }
 
 .two {
-    background: lightblue;
+	background: lightblue;
 }
 
 .three {
-    background: lightcoral;
+	background: lightcoral;
 }
 
 .all h1 {
-    text-align: center;
+	text-align: center;
 }
 
 .all {
-    border-radius: 5px;
+	border-radius: 5px;
 }
 
 .thumbnail {
-    background: lightgrey;
-    border: 1px solid white;
-    text-align: center;
+	background: lightgrey;
+	border: 1px solid white;
+	text-align: center;
 }
 
 .navbar a.clicked {
-    color: white;
+	color: white;
 }
 
 .navbar ul li a.clicked {
-    color: white;
+	color: white;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 #custom-navbar {
-    border-radius: 0;
+	border-radius: 0;
+}
+
+#custom-button {
+	background-color: var(--primary-color);
+	border: var(--primary-color);
+}
+
+#custom-button:hover {
+	background-color: #631ead;
+}
+
+.was-validated .form-control:valid,
+.was-validated .form-control:invalid {
+	background-image: none;
+}
+
+.required::after {
+	content: "*";
 }

@@ -1,47 +1,71 @@
 <%- include('partials/header'); -%>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <h1 class="text-center">Register</h1>
-        <div style="width: 23.0em; margin: 25px auto;">
-            <form action="/register" method="POST">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="voter[name]" placeholder="Name" required>
+        <div class="col"> </div>
+        <div class="col-sm-7 col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                    <h1 class="card-title text-center">Register</h1>
+                    <form class="needs-validation" action="/register" method="POST" novalidate>
+                        <p><small class="text-muted">Feilds marked * are required.</small></p>
+                        <div class="form-group">
+                            <label class="required" for="username">Name</label>
+                            <input type="text" class="form-control" name="voter[name]" placeholder="Amit Joshi" required>
+                            <div class="invalid-feedback">
+                                Please enter your name.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="username">Email</label>
+                            <input type="text" class="form-control" name="voter[email]" placeholder="amit@mail.com" required>
+                            <div class="invalid-feedback">
+                                Please provide an email.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="username">Aadhar Number</label>
+                            <input type="number" class="form-control" name="voter[username]" placeholder="1234 5678 9012" required>
+                            <div class="invalid-feedback">
+                                Please enter your aadhar number.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="username">Age</label>
+                            <input type="number" class="form-control" name="voter[age]" required>
+                            <div class="invalid-feedback">
+                                Please enter your age.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Gender</label>
+                            <select class="form-control" name="voter[gender]" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Constituency</label>
+                            <select class="form-control" name="voter[constituency]" required>
+                                <option value="Varanasi">Varanasi</option>
+                                <option value="Worli">Worli</option>
+                                <option value="Amethi">Amethi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="password">Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                            <div class="invalid-feedback">
+                                Please enter password.
+                            </div>
+                        </div>
+                        <button id="custom-button" class="btn btn-primary btn-block">Register</button>
+                        <p class="text-center mt-2 mb-0">Have an account? <a href="/login">Login</a></p>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input class="form-control" type="email" name="voter[email]" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="voter[username]" placeholder="Aadhar" required>
-                </div>
-                <div class="form-group">
-                    <input class="form-control age" type="Number" name="voter[age]" placeholder="Age" required>
-                </div>
-                <div class="form-group">
-                    <label>Gender</label>
-                    <select class="form-control" name="voter[gender]" required>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Constituency</label>
-                    <select class="form-control" name="voter[constituency]" required>
-                        <option value="Varanasi">Varanasi</option>
-                        <option value="Worli">Worli</option>
-                        <option value="Amethi">Amethi</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password" minlength="8" required>
-                </div>
-                <div class="form-group">
-                    <button class="mybt btn btn-lg btn-primary btn-block">Register</button>
-                </div>
-            </form>
-            <p>Already have an account?</p>
-            <a class="btn btn-lg btn-info btn-block" href="/login">Login</a>
+            </div>
         </div>
+        <div class="col"> </div>
     </div>
 </div>
 

@@ -1,18 +1,26 @@
 <%- include('partials/header'); -%>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <h1 style="text-align: center">Verify Account</h1>
-        <div style="width: 30%; margin: 25px auto;">
-            <form action="/verify" method="post">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="secretToken" placeholder="OTP Password" required>
+        <div class="col"> </div>
+        <div class="col-sm-7 col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0 pb-2">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Verify Account</h2>
+                    <form class="needs-validation" action="/verify" method="POST" novalidate>
+                        <div class="form-group">
+                            <label for="username">OTP Password</label>
+                            <input type="text" class="form-control" name="secretToken" placeholder="6abe23" required>
+                            <div class="invalid-feedback">
+                                Please enter OTP password.
+                            </div>
+                        </div>
+                        <button id="custom-button" class="btn btn-primary btn-block">Verify</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Verify</button>
-                </div>
-            </form>
+            </div>
         </div>
+        <div class="col"> </div>
     </div>
 </div>
 

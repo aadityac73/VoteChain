@@ -1,4 +1,4 @@
 module.exports = {
-    MAILGUN_USER: 'myvotechain@gmail.com',
-    MAILGUN_PASS: process.env.MAILPWD
-  };
+	GMAIL_USER: 'myvotechain@gmail.com',
+	GMAIL_PASS: process.env.MAILPWD
+};
