@@ -1,0 +1,37 @@
+<%- include('../partials/header') -%>
+
+<div class="container mt-3">
+  <div class="mt-4 mb-4">
+    <a class="btn btn-dark" href="/candidates">Candidates / <strong>Voters</strong></a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Aadhar</th>
+          <th scope="col">Constituency</th>
+          <th class="text-center" scope="col">Verified?</th>
+          <th class="text-center" scope="col">Voted?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% voters.map((voter, idx) => { %>
+          <% if(voter.username !== 'admin') { %>
+            <tr>
+              <th scope="row"><%= idx %></th> 
+              <td><%= voter.name %></td>
+              <td><%= voter.username %></td>
+              <td><%= voter.constituency %></td>
+              <td class="text-center text-capitalize"><%= voter.verified %></td>
+              <td class="text-center text-capitalize"><%= voter.isVoted %></td>
+            </tr>
+          <% } %>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('../partials/footer') -%>

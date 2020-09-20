@@ -1,0 +1,39 @@
+<%- include('../partials/header') -%>
+
+<div class="container mt-3">
+  <div class="mt-4 mb-4">
+    <a class="btn btn-dark" href="/voters"><strong>Candidates</strong> / Voters</a>
+    <a id="custom-button" class="float-right btn btn-primary" href="/candidates/add">Add Candidate</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Constituency</th>
+          <th scope="col">Party</th>
+          <th class="text-center" scope="col">Vote Count</th>
+          <th class="text-center" scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% allCandidates.map((candidate, idx) => { %>
+          <tr>
+            <th scope="row"><%= idx+1 %></th> 
+            <td><%= candidate.name %></td>
+            <td><%= candidate.constituency %></td>
+            <td><%= candidate.party %></td>
+            <td class="text-center"><%= candidate.voteCount %></td>
+            <td class="text-center">
+              <form action="/candidates/<%= candidate._id %>?_method=DELETE" method="POST">
+                <button id="delete-button"><i class="far fa-trash-alt"></i></button>
+              </form></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('../partials/footer') -%>

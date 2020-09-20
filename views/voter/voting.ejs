@@ -1,0 +1,40 @@
+<%- include('../partials/header'); -%>
+
+<div class="container mt-4 pr-4 pl-4">
+    <div class="row">
+        <div class="col-12 col-md-8 mb-4">
+            <h3 class="mb-3 text-capitalize">Vote your candidate</h3>
+            <p class="mb-0 text-uppercase text-bold">Name: </p><span><%= currUser.name %></span>
+            <p class="mt-3 mb-0 text-uppercase text-bold">Aadhar: </p><span><%= currUser.username %></span>
+            <p class="mt-3 mb-0 text-uppercase text-bold">Constituency: </p><span><%= currUser.constituency %></span>
+        </div>
+        <div class="col-12 col-md-4 card bg-light shadow-lg mb-5">
+            <div class="card-body">
+                <h2 class="card-title">Caste your vote</h2>
+                <form action="/vote" method="POST">
+                    <% foundCandidates.forEach(function(candidate){ %>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <img class="card-img-top img-responsive" src="<%= candidate.image %>" alt="">
+                                <h5 class="card-title text-center mt-3 mb-0 pb-0">
+                                    <div class="form-group mb-0">
+                                        <input type="radio" id="<%= candidate._id %>" name="candidate" value="<%= candidate._id %>" required>
+                                        <label for="<%= candidate._id %>"><%= candidate.name %></label>
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                        
+                    <% }) %>
+                    <button id="custom-button" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer'); -%>
+
+
+
+<!-- <li><a href="/logout">Logout</a></li> -->

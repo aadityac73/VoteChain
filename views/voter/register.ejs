@@ -1,14 +1,14 @@
-<%- include('partials/header'); -%>
+<%- include('../partials/header'); -%>
 
 <div class="container mt-5">
     <div class="row">
         <div class="col"> </div>
         <div class="col-sm-7 col-md-6 col-lg-5">
-            <div class="card shadow-lg border-0">
+            <div class="card shadow-lg mb-5 pb-0 border-0">
                 <div class="card-body">
                     <h1 class="card-title text-center">Register</h1>
                     <form class="needs-validation" action="/register" method="POST" novalidate>
-                        <p><small class="text-muted">Feilds marked * are required.</small></p>
+                        <p><small class="text-danger">Feilds marked * are required.</small></p>
                         <div class="form-group">
                             <label class="required" for="username">Name</label>
                             <input type="text" class="form-control" name="voter[name]" placeholder="Amit Joshi" required>
@@ -82,4 +82,4 @@
 
 <!-- <li><a href="/logout">Logout</a></li> -->
 
-<%- include('partials/footer'); -%>
+<%- include('../partials/footer'); -%>

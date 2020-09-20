@@ -12,7 +12,7 @@ const URL =
 router
 	.route('/register')
 	.get(middleware.isNotAuthenticated, (req, res) => {
-		res.render('register');
+		res.render('voter/register');
 	})
 	.post(
 		middleware.isNotAuthenticated,
@@ -73,7 +73,7 @@ router
 router
 	.route('/verify')
 	.get(middleware.isNotAuthenticated, (req, res) => {
-		res.render('verify');
+		res.render('voter/verify');
 	})
 	.post(
 		middleware.isNotAuthenticated,
@@ -102,7 +102,7 @@ router
 router
 	.route('/login')
 	.get(middleware.isNotAuthenticated, (req, res) => {
-		res.render('login');
+		res.render('voter/login');
 	})
 	.post(
 		passport.authenticate('local', {
@@ -112,7 +112,7 @@ router
 		middleware.isVerified,
 		(req, res) => {
 			if (req.body.username == 'admin') {
-				res.redirect('/admin');
+				res.redirect('/candidates');
 			} else {
 				res.redirect('/vote');
 			}
@@ -124,7 +124,7 @@ router.get(
 	'/login/admin',
 	middleware.isNotAuthenticated,
 	(req, res) => {
-		res.render('admin_login');
+		res.render('admin/admin_login');
 	}
 );
 

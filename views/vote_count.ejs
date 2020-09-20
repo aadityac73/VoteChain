@@ -1,65 +1,53 @@
 <%- include('partials/header'); -%>
-<div class="container">
+<div class="container mt-2">
     <div class="row">
-        <div class="col-md-4 one all">
-            <h1>Worli</h1>
-            <div class="row">
-                <div class="col-md-10 col-xs-10">
-                    <% block.forEach(function(foundBlock){ %>
-                        <%    if(foundBlock.constituency === "Worli"){ %>
-                                <h3><%= foundBlock.name %></h3>
-                        <%   } %>
-                        <% }) %>
-                </div>
-                <div class="col-md-2 col-xs-2">
-                    <% block.forEach(function(foundBlock){ %>
-                        <%    if(foundBlock.constituency === "Worli"){ %>
-                                <h3><span class="count"><%= foundBlock.voteCount %></span></h3>
-                        <%   } %>
-                        <% }) %>
-                </div>
-            </div>
+        <div class="col"> </div>
+        <div class="col-12 col-md-6 canvas-container" style="width: 500px; height: 500px;">
+            <canvas id="myChart" width="200" height="200"></canvas>
         </div>
-        <div class="col-md-4 two all">
-            <h1>Amethi</h1>
-            <div class="row">
-                <div class="col-md-10 col-xs-10">
-                    <% block.forEach(function(foundBlock){ %>
-                        <%    if(foundBlock.constituency === "Amethi"){ %>
-                                <h3><%= foundBlock.name %></h3>
-                        <%   } %>
-                        <% }) %>
-                </div>
-                <div class="col-md-2 col-xs-2">
-                    <% block.forEach(function(foundBlock){ %>
-                        <%    if(foundBlock.constituency === "Amethi"){ %>
-                                <h3><span class="count"><%= foundBlock.voteCount %></span></h3>
-                        <%   } %>
-                        <% }) %>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 three all">
-            <h1>Varanasi</h1>
-            <div class="row">
-                <div class="col-md-10 col-xs-10">
-                    <% block.forEach(function(foundBlock){ %>
-                        <%    if(foundBlock.constituency === "Varanasi"){ %>
-                                <h3><%= foundBlock.name %></h3>
-                        <%   } %>
-                        <% }) %>
-                </div>
-                <div class="col-md-2 col-xs-2">
-                    <% block.forEach(function(foundBlock){ %>
-                        <%    if(foundBlock.constituency === "Varanasi"){ %>
-                                <h3><span class="count"><%= foundBlock.voteCount %></span></h3>
-                        <%   } %>
-                        <% }) %>
-                </div>
-            </div>
-        </div>
+        <div class="col"> </div>
     </div>
+    
+    <span id="candidates" hidden><%= candidates %></span>
 </div>
+
+<script>
+    const candidates = JSON.parse(document.getElementById('candidates').innerHTML)
+    const ctx = document.getElementById('myChart');
+    Chart.defaults.global.elements.point = 1;
+    const data = {
+        labels: [ ...candidates.map(c => (c.name)) ],
+        datasets: [{
+            label: '# of Votes',
+            data: [ ...candidates.map(c => (c.voteCount)) ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)']
+                }]
+    }
+    
+    const options = {
+        scales: false,
+        legend: {
+            position: 'top'
+        },
+        title: {
+            display: true,
+            text: 'Results',
+            fontSize: 25
+        }
+    }
+
+    const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: options
+    });
+</script>
 
 <%- include('partials/footer'); -%>
 

@@ -1,18 +1,18 @@
-<%- include('partials/header'); -%>
+<%- include('../partials/header'); -%>
 
 <div class="container mt-5">
     <div class="row">
         <div class="col"> </div>
         <div class="col-sm-7 col-md-6 col-lg-5">
-            <div class="card shadow-lg pb-3 border-0">
+            <div class="card shadow-lg border-0">
                 <div class="card-body">
-                    <h1 class="card-title text-center">Admin Login</h1>
+                    <h1 class="card-title text-center">Login</h1>
                     <form class="needs-validation" action="/login" method="POST" novalidate>
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" required>
+                            <label for="username">Aadhar Number</label>
+                            <input type="number" class="form-control" name="username" placeholder="1234 5678 9012" required>
                             <div class="invalid-feedback">
-                                Please enter username.
+                                Please enter aadhar number.
                             </div>
                         </div>
                         <div class="form-group">
@@ -22,7 +22,8 @@
                                 Please enter password.
                             </div>
                         </div>
-                        <button id="custom-button" class="btn btn-lg btn-primary btn-block">Login</button>
+                        <button id="custom-button" class="btn btn-primary btn-block">Login</button>
+                        <p class="text-center mt-2 mb-0">Don't have an account? <a href="/register">Sign Up</a></p>
                     </form>
                 </div>
             </div>
@@ -31,4 +32,6 @@
     </div>
 </div>
 
-<%- include('partials/footer'); -%>
+<!-- <li><a href="/logout">Logout</a></li> -->
+
+<%- include('../partials/footer'); -%>

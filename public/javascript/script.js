@@ -36,7 +36,12 @@ if (loc === '/vote') {
 } else if (loc === '/results') {
 	document.title = 'Results';
 	$('#results').toggleClass('active');
-} else if (loc === '/admin' || loc === '/login/admin') {
+} else if (
+	loc === '/login/admin' ||
+	loc === '/voters' ||
+	loc === '/candidates' ||
+	loc === '/candidates/add'
+) {
 	document.title = 'Admin';
 	$('#admin').toggleClass('active');
 } else if (loc === '/login') {

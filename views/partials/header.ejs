@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Votechain</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous">
         <link rel="stylesheet" href="/stylesheets/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
     </head>
     <body>
         <nav id="custom-navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,7 +21,7 @@
                         <li class="nav-item"><a class="nav-link" id="vote" href="/vote">Vote</a></li>
                         <li class="nav-item"><a class="nav-link" id="results" href="/results">Results</a></li>
                         <% if(currUser && currUser.username == 'admin') {%>
-                                <li class="nav-item"><a class="nav-link" id="admin" href="/admin">Admin</a></li>
+                                <li class="nav-item"><a class="nav-link" id="admin" href="/candidates">Admin</a></li>
                         <% }else { %>
                                 <li class="nav-item"><a class="nav-link" id="admin" href="/login/admin">Admin</a></li>
                         <% } %>

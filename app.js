@@ -5,6 +5,7 @@ const express = require('express'),
 	flash = require('connect-flash'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local'),
+	methodOverride = require('method-override'),
 	Voter = require('./models/voter'),
 	seedDB = require('./seed'),
 	chainIsValid = require('./validity');
@@ -52,6 +53,8 @@ app.use(function(req, res, next) {
 	res.locals.success = req.flash('success');
 	next();
 });
+
+app.use(methodOverride('_method'));
 
 app.use('/', votingRoutes);
 app.use('/', indexRoutes);
