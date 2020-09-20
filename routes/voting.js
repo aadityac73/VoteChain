@@ -125,6 +125,7 @@ router
 	.get(
 		middleware.isLoggedIn,
 		middleware.isAdmin,
+		middleware.electionNotStarted,
 		(req, res) => {
 			res.render('admin/addCandidates');
 		}
@@ -132,6 +133,7 @@ router
 	.post(
 		middleware.isLoggedIn,
 		middleware.isAdmin,
+		middleware.electionNotStarted,
 		async (req, res, next) => {
 			try {
 				const candidate = Candidate.create(
@@ -156,21 +158,27 @@ router
 		}
 	);
 
-router.delete('/candidates/:id', (req, res) => {
-	Candidate.findByIdAndRemove(req.params.id, (err) => {
-		if (err) {
-			req.flash('error', 'Something went wrong!');
-			console.log(err);
-			res.redirect('back');
-		} else {
-			req.flash(
-				'sucess',
-				'Candidate deleted successfully!'
-			);
-			res.redirect('back');
-		}
-	});
-});
+router.delete(
+	'/candidates/:id',
+	middleware.isLoggedIn,
+	middleware.isAdmin,
+	middleware.electionNotStarted,
+	(req, res) => {
+		Candidate.findByIdAndRemove(req.params.id, (err) => {
+			if (err) {
+				req.flash('error', 'Something went wrong!');
+				console.log(err);
+				res.redirect('back');
+			} else {
+				req.flash(
+					'sucess',
+					'Candidate deleted successfully!'
+				);
+				res.redirect('back');
+			}
+		});
+	}
+);
 
 // ROUTE FOR RESULTS PAGE
 router.get('/results', async (req, res, next) => {
