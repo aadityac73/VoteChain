@@ -6,34 +6,35 @@ const express = require('express'),
 	randomString = require('randomstring'),
 	mailer = require('../misc/mailer');
 
-const URL =
-	process.env.WEBURL || 'http://localhost:3000/verify';
+const URL = process.env.WEBURL || 'http://localhost:3000/verify';
 // ROUTE FOR REGISTRATION PAGE
 router
 	.route('/register')
 	.get(middleware.isNotAuthenticated, (req, res) => {
 		res.render('voter/register');
 	})
-	.post(
-		middleware.isNotAuthenticated,
-		async (req, res, next) => {
-			try {
-				if (req.body.voter.age >= 18) {
-					const voter = await Voter.register(
-						new Voter(req.body.voter),
-						req.body.password
-					);
-					if (!voter) {
-						req.flash('error', 'Something went wrong!');
-						res.redirect('back');
-					} else {
-						// GENERATE RANDOM TOKEN FOR OTP
-						const secretToken = randomString.generate(6);
-						voter.secretToken = secretToken;
-						await voter.save();
+	.post(middleware.isNotAuthenticated, async (req, res, next) => {
+		try {
+			if (req.body.voter.age >= 18) {
+				const user1 = await Voter.findOne({ email: req.body.voter.email });
+				const user = await Voter.findOne({ username: req.body.voter.username });
+				if (user1) {
+					req.flash('error', 'Email is already in use!');
+					res.redirect('back');
+					return;
+				} else if (user) {
+					req.flash('error', 'Aadhar number is already in use!');
+					res.redirect('back');
+					return;
+				} else {
+					const voter = await Voter.register(new Voter(req.body.voter), req.body.password);
+					// GENERATE RANDOM TOKEN FOR OTP
+					const secretToken = randomString.generate(6);
+					voter.secretToken = secretToken;
+					await voter.save();
 
-						// Compose Email
-						const html = `Hi there,
+					// Compose Email
+					const html = `Hi there,
                 <br/>
                 Thank you for registering!
                 <br/><br/>
@@ -46,28 +47,19 @@ router
                 <br/><br/>
                 Have a pleasant day.`;
 
-						// Send Email
-						mailer.sendEmail(
-							'myvotechain@gmail.com',
-							voter.email,
-							'Please verify your VoteChain Account!',
-							html
-						);
-						req.flash(
-							'success',
-							'Registerd successfully, Check your Email'
-						);
-						res.redirect('/login');
-					}
-				} else {
-					req.flash('error', 'Age must be 18 or above');
-					res.redirect('/register');
+					// Send Email
+					mailer.sendEmail('myvotechain@gmail.com', voter.email, 'Please verify your VoteChain Account!', html);
+					req.flash('success', 'Registerd successfully, Check your Email');
+					res.redirect('/login');
 				}
-			} catch (error) {
-				next(error);
+			} else {
+				req.flash('error', 'Age must be 18 or above');
+				res.redirect('/register');
 			}
+		} catch (error) {
+			next(error);
 		}
-	);
+	});
 
 //ROUTE FOR VERIFY USER
 router
@@ -75,28 +67,25 @@ router
 	.get(middleware.isNotAuthenticated, (req, res) => {
 		res.render('voter/verify');
 	})
-	.post(
-		middleware.isNotAuthenticated,
-		async (req, res, next) => {
-			try {
-				const voter = await Voter.findOne({
-					secretToken: req.body.secretToken
-				});
-				if (!voter) {
-					req.flash('error', 'No user found!!');
-					res.redirect('/verify');
-				} else {
-					voter.verified = true;
-					voter.secretToken = '';
-					await voter.save();
-					req.flash('success', 'Sucessfully varified!!');
-					res.redirect('/login');
-				}
-			} catch (error) {
-				next(error);
+	.post(middleware.isNotAuthenticated, async (req, res, next) => {
+		try {
+			const voter = await Voter.findOne({
+				secretToken: req.body.secretToken
+			});
+			if (!voter) {
+				req.flash('error', 'No user found!!');
+				res.redirect('/verify');
+			} else {
+				voter.verified = true;
+				voter.secretToken = '';
+				await voter.save();
+				req.flash('success', 'Sucessfully varified!!');
+				res.redirect('/login');
 			}
+		} catch (error) {
+			next(error);
 		}
-	);
+	});
 
 // ROUTE FOR LOGIN
 router
@@ -120,13 +109,9 @@ router
 	);
 
 // ROUTE FOR ADMIN LOGIN
-router.get(
-	'/login/admin',
-	middleware.isNotAuthenticated,
-	(req, res) => {
-		res.render('admin/admin_login');
-	}
-);
+router.get('/login/admin', middleware.isNotAuthenticated, (req, res) => {
+	res.render('admin/admin_login');
+});
 
 // ROUTE FOR LOGOUT USER
 router.get('/logout', (req, res) => {
