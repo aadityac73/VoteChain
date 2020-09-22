@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'),
 	app = express(),
 	bodyParser = require('body-parser'),
@@ -16,7 +17,9 @@ const votingRoutes = require('./routes/voting'),
 const PORT = process.env.PORT || 3000;
 
 //------------------------- MONGODB CONNECTION -------------------------------
-const URI = process.env.DATABASEURL || 'mongodb://127.0.0.1:27017/votechain';
+const URI =
+	process.env.DATABASEURL ||
+	'mongodb://127.0.0.1:27017/votechain';
 mongoose.connect(URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
